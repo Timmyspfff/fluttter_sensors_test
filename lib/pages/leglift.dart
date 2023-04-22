@@ -3,31 +3,30 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
-class Accelerometer extends StatefulWidget {
-  const Accelerometer({super.key});
+class Leglift extends StatefulWidget {
+  const Leglift({super.key});
 
   @override
-  _AccelerometerState createState() => _AccelerometerState();
+  _LegliftState createState() => _LegliftState();
 }
 
-class _AccelerometerState extends State<Accelerometer> {
+class _LegliftState extends State<Leglift> {
   AccelerometerEvent? _lastEvent;
   late StreamSubscription<AccelerometerEvent> _streamSubscription;
-  bool isPushup = false;
-  var pushupcount = 0;
-  var pushupflag = 1;
+  var legliftcount = 0;
+  var legliftflag = 1;
   @override
   void initState() {
     super.initState();
     // 註冊加速度感應器事件監聽
     _streamSubscription =
         accelerometerEvents.listen((AccelerometerEvent event) async {
-      if (event.x > 3 && event.y > 4 && pushupflag == 1) {
-        pushupcount++;
-        pushupflag = 0;
+      if (event.z > 7 && legliftflag == 1) {
+        legliftcount++;
+        legliftflag = 0;
       }
-      if (event.x < 3 && event.y < 4 && pushupflag == 0) {
-        pushupflag = 1;
+      if (event.z < 7 && legliftflag == 0) {
+        legliftflag = 1;
       }
 
       setState(() {
@@ -46,28 +45,28 @@ class _AccelerometerState extends State<Accelerometer> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Accelerometer Demo',
+      title: 'Leglift Demo',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Accelerometer Demo'),
+          title: const Text('Leglift Demo'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                '加速度(包括重力)',
+                '抬腿',
                 style: TextStyle(fontSize: 24),
               ),
               Text(
-                '伏地挺身次數：${pushupcount.toString()}',
+                '抬腿次數：${legliftcount.toString()}',
                 style: const TextStyle(fontSize: 16),
               ),
               ElevatedButton(
                   onPressed: () {
-                    pushupcount = 0;
+                    legliftcount = 0;
                   },
-                  child: const Text("伏地挺身重置")),
+                  child: const Text("抬腿重置")),
               const SizedBox(height: 16),
               Text(
                 'X 軸加速度：${_lastEvent?.x.toStringAsFixed(2) ?? 0}',

@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
-class Accelerometer extends StatefulWidget {
-  const Accelerometer({super.key});
+class Pushup extends StatefulWidget {
+  const Pushup({super.key});
 
   @override
-  _AccelerometerState createState() => _AccelerometerState();
+  _PushupState createState() => _PushupState();
 }
 
-class _AccelerometerState extends State<Accelerometer> {
+class _PushupState extends State<Pushup> {
   AccelerometerEvent? _lastEvent;
   late StreamSubscription<AccelerometerEvent> _streamSubscription;
   bool isPushup = false;
@@ -46,17 +46,17 @@ class _AccelerometerState extends State<Accelerometer> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Accelerometer Demo',
+      title: 'Pushup Demo',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Accelerometer Demo'),
+          title: const Text('Pushup Demo'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                '加速度(包括重力)',
+                '伏地挺身',
                 style: TextStyle(fontSize: 24),
               ),
               Text(
